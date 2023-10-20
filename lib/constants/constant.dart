@@ -12,6 +12,7 @@ class AppColor {
   static const Color imageBGColor = Color(0xFFCCCCCC);
   static const Color textInputColor = Color(0xFF555555);
   static const Color accentColor = Color(0xFF4D5FFF);
+  static const Color errorColor = Color(0xFF8F2525);
 }
 
 // Text box style for the app

@@ -1,7 +1,9 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:digisalad_task/constants/constant.dart';
 import 'package:digisalad_task/screens/home_screen.dart';
+import 'package:digisalad_task/utils/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
   // Intialize the notification service of the audio player
@@ -9,7 +11,12 @@ void main() {
     return true;
   });
 
-  runApp(const MyApp());
+  runApp(GetMaterialApp(
+    home: const MyApp(),
+    translations: Localization(),
+    locale: Get.deviceLocale,
+    fallbackLocale: const Locale('en', 'US'),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

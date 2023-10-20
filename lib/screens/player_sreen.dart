@@ -3,6 +3,7 @@ import 'package:digisalad_task/constants/constant.dart';
 import 'package:digisalad_task/screens/widgets/album_art.dart';
 import 'package:digisalad_task/screens/widgets/position_seek.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // The bottom modal popup player for the selected song
 class PlayerScreen extends StatefulWidget {
@@ -54,7 +55,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
       body: Container(
         height: 288,
         padding: const EdgeInsets.only(left: 24, top: 24, bottom: 24),
-        width: MediaQuery.of(context).size.width,
+        width: Get.width,
         color: AppColor.backgroundColor,
         child: Column(
           children: [
@@ -65,7 +66,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 const SizedBox(width: 16),
                 // Widget of the album art, track name and the artist name
                 SizedBox(
-                  width: MediaQuery.of(context).size.width - 168,
+                  width: Get.width - 168,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -87,7 +88,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       children: [
                         // Define the size of the seek bar
                         SizedBox(
-                          width: MediaQuery.of(context).size.width - 128,
+                          width: Get.width - 128,
                           child: SeekBarWidget(
                             currentPosition: infos!.currentPosition,
                             duration: infos.duration,
