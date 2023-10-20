@@ -7,6 +7,7 @@ class AppColor {
   static const Color secondaryColor = Color(0xFF7C73F6);
   static const Color backgroundColor = Color(0xFFF5F5F5);
   static const Color appBarColor = Color(0xFFFFFFFF);
+  static const Color appBarColorDark = Color(0xFF000000);
   static const Color cardBackgroundColor = Color(0xFFFFFFFF);
   static const Color cardBorderColor = Color(0xFFFFFFFF);
   static const Color imageBGColor = Color(0xFFCCCCCC);
@@ -41,7 +42,7 @@ class TextBox {
   static Text playerTitle(content) {
     return Text(
       content,
-      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
@@ -51,7 +52,17 @@ class TextBox {
   static Text playerSubtitle(content) {
     return Text(
       content,
-      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+
+  // Text widget for app name in settings page
+  static Text settingsAppName(content) {
+    return Text(
+      content,
+      style: const TextStyle(fontSize: 27, fontWeight: FontWeight.w700, color: AppColor.primaryColor),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );

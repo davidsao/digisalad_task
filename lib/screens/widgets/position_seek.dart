@@ -44,52 +44,49 @@ class _SeekBarWidgetState extends State<SeekBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          // Widget for showing the current play time in '00:00' format
-          SizedBox(
-            width: 44,
-            child:
-                TextBox.listSubtitle(durationToString(widget.currentPosition)),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        // Widget for showing the current play time in '00:00' format
+        SizedBox(
+          width: 44,
+          child:
+          TextBox.listSubtitle(durationToString(widget.currentPosition)),
+        ),
+        // Widget for the slider with play head
+        Expanded(
+          child: Slider(
+            min: 0,
+            max: widget.duration.inMilliseconds.toDouble(),
+            value: percent * widget.duration.inMilliseconds.toDouble(),
+            // Functions for handling seek time changes and stop the interaction state
+            onChangeEnd: (newValue) {
+              setState(() {
+                listenOnlyUserInteraction = false;
+                widget.seekTo(_visibleValue);
+              });
+            },
+            // Functions for changing the interaction state
+            onChangeStart: (_) {
+              setState(() {
+                listenOnlyUserInteraction = true;
+              });
+            },
+            // Functions for notifying the seek time change with the final value
+            onChanged: (newValue) {
+              setState(() {
+                final to = Duration(milliseconds: newValue.floor());
+                _visibleValue = to;
+              });
+            },
           ),
-          // Widget for the slider with play head
-          Expanded(
-            child: Slider(
-              min: 0,
-              max: widget.duration.inMilliseconds.toDouble(),
-              value: percent * widget.duration.inMilliseconds.toDouble(),
-              // Functions for handling seek time changes and stop the interaction state
-              onChangeEnd: (newValue) {
-                setState(() {
-                  listenOnlyUserInteraction = false;
-                  widget.seekTo(_visibleValue);
-                });
-              },
-              // Functions for changing the interaction state
-              onChangeStart: (_) {
-                setState(() {
-                  listenOnlyUserInteraction = true;
-                });
-              },
-              // Functions for notifying the seek time change with the final value
-              onChanged: (newValue) {
-                setState(() {
-                  final to = Duration(milliseconds: newValue.floor());
-                  _visibleValue = to;
-                });
-              },
-            ),
-          ),
-          // Widget for showing the total length of the song in '00:00' format
-          SizedBox(
-            width: 44,
-            child: TextBox.listSubtitle(durationToString(widget.duration)),
-          ),
-        ],
-      ),
+        ),
+        // Widget for showing the total length of the song in '00:00' format
+        SizedBox(
+          width: 44,
+          child: TextBox.listSubtitle(durationToString(widget.duration)),
+        ),
+      ],
     );
   }
 }

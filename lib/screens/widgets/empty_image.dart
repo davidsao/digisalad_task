@@ -18,7 +18,7 @@ class EmptyImage extends StatefulWidget {
 class _EmptyImageState extends State<EmptyImage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
       child: Column(
         children: [
           const SizedBox(height: 32),

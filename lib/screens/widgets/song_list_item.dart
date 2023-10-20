@@ -3,44 +3,38 @@ import 'package:digisalad_task/screens/widgets/album_art.dart';
 import 'package:flutter/material.dart';
 
 // Widget of the items in the search song list result
-class SongListItem extends StatefulWidget {
-  const SongListItem({Key? key, required this.song}) : super(key: key);
-
+class SongListItem extends StatelessWidget {
+  SongListItem(this.song);
+  // Passing song information from the listview builder
   final dynamic song;
 
-  @override
-  State<SongListItem> createState() => _SongListItemState();
-}
-
-class _SongListItemState extends State<SongListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 104,
         margin: const EdgeInsets.all(4),
         padding: const EdgeInsets.all(8),
+        // Card decoration with rounded corners and border
         decoration: BoxDecoration(
             color: AppColor.cardBackgroundColor,
             borderRadius: const BorderRadius.all(Radius.circular(12)),
             border: Border.all(color: AppColor.textInputColor.withAlpha(30))),
         child: Row(
           children: [
-            AlbumArt(size: 80, imageURL: widget.song['artworkUrl100'] ?? ''),
+            AlbumArt(size: 80, imageURL: song['artworkUrl100'] ?? ''),
             const SizedBox(width: 16),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 160,
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextBox.listTitle(widget.song['trackName'] ?? ''),
-                  TextBox.listSubtitle(widget.song['collectionName'] ?? ''),
+                  TextBox.listTitle(song['trackName'] ?? ''),
+                  TextBox.listSubtitle(song['collectionName'] ?? ''),
                   const SizedBox(height: 8),
-                  TextBox.listSubtitle(widget.song['artistName'] ?? ''),
+                  TextBox.listSubtitle(song['artistName'] ?? ''),
                 ],
               ),
             ),
-            const Spacer(),
           ],
         ));
   }
