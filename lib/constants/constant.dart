@@ -4,10 +4,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 // Color of the components in the app
 class AppColor {
   static const Color primaryColor = Color(0xFF7C73F6);
+  static const Color textBoxBackground = Color(0xFFF3F3FF);
   static const Color secondaryColor = Color(0xFF7C73F6);
-  static const Color backgroundColor = Color(0xFFF5F5F5);
+  static const Color backgroundColor = Color(0xFFFFFFFF);
   static const Color appBarColor = Color(0xFFFFFFFF);
-  static const Color appBarColorDark = Color(0xFF000000);
+  static const Color shadowColor = Color(0x40000000);
   static const Color cardBackgroundColor = Color(0xFFFFFFFF);
   static const Color cardBorderColor = Color(0xFFFFFFFF);
   static const Color imageBGColor = Color(0xFFCCCCCC);
@@ -62,11 +63,27 @@ class TextBox {
   static Text settingsAppName(content) {
     return Text(
       content,
-      style: const TextStyle(fontSize: 27, fontWeight: FontWeight.w700, color: AppColor.primaryColor),
+      style: const TextStyle(
+          fontSize: 27,
+          fontWeight: FontWeight.w700,
+          color: AppColor.primaryColor),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
   }
+}
+
+ButtonStyle buttonStyle() {
+  return ButtonStyle(
+    elevation: MaterialStateProperty.all(0),
+    textStyle:
+        MaterialStateProperty.all<TextStyle>(const TextStyle(fontSize: 16)),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+  );
 }
 
 // Formatting numbers to 2-digit strings

@@ -44,48 +44,46 @@ class _SeekBarWidgetState extends State<SeekBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        // Widget for showing the current play time in '00:00' format
-        SizedBox(
-          width: 44,
-          child:
-          TextBox.listSubtitle(durationToString(widget.currentPosition)),
-        ),
+    return Column(
+      children: [
         // Widget for the slider with play head
-        Expanded(
-          child: Slider(
-            min: 0,
-            max: widget.duration.inMilliseconds.toDouble(),
-            value: percent * widget.duration.inMilliseconds.toDouble(),
-            // Functions for handling seek time changes and stop the interaction state
-            onChangeEnd: (newValue) {
-              setState(() {
-                listenOnlyUserInteraction = false;
-                widget.seekTo(_visibleValue);
-              });
-            },
-            // Functions for changing the interaction state
-            onChangeStart: (_) {
-              setState(() {
-                listenOnlyUserInteraction = true;
-              });
-            },
-            // Functions for notifying the seek time change with the final value
-            onChanged: (newValue) {
-              setState(() {
-                final to = Duration(milliseconds: newValue.floor());
-                _visibleValue = to;
-              });
-            },
-          ),
+        Slider(
+          min: 0,
+          max: widget.duration.inMilliseconds.toDouble(),
+          value: percent * widget.duration.inMilliseconds.toDouble(),
+          // Functions for handling seek time changes and stop the interaction state
+          onChangeEnd: (newValue) {
+            setState(() {
+              listenOnlyUserInteraction = false;
+              widget.seekTo(_visibleValue);
+            });
+          },
+          // Functions for changing the interaction state
+          onChangeStart: (_) {
+            setState(() {
+              listenOnlyUserInteraction = true;
+            });
+          },
+          // Functions for notifying the seek time change with the final value
+          onChanged: (newValue) {
+            setState(() {
+              final to = Duration(milliseconds: newValue.floor());
+              _visibleValue = to;
+            });
+          },
         ),
-        // Widget for showing the total length of the song in '00:00' format
-        SizedBox(
-          width: 44,
-          child: TextBox.listSubtitle(durationToString(widget.duration)),
-        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(width: 24),
+            // Widget for showing the current play time in '00:00' format
+            TextBox.listTitle(durationToString(widget.currentPosition)),
+            const Spacer(),
+            // Widget for showing the total length of the song in '00:00' format
+            TextBox.listTitle(durationToString(widget.duration)),
+            const SizedBox(width: 24),
+          ],
+        )
       ],
     );
   }

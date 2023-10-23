@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 
 // Format the pictures of the album art
 class AlbumArt extends StatefulWidget {
-  const AlbumArt({Key? key, required this.size, required this.imageURL})
+  const AlbumArt(
+      {Key? key,
+      required this.size,
+      required this.imageURL,
+      required this.isPlayer})
       : super(key: key);
   // Pass in the size of the output widget and the URL of the image
   final double size;
   final String imageURL;
+  final bool isPlayer;
 
   @override
   State<AlbumArt> createState() => _AlbumArtState();
@@ -22,7 +27,8 @@ class _AlbumArtState extends State<AlbumArt> {
       height: widget.size,
       // Set the Rounded corner of the image
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(widget.size / 12)),
+        borderRadius: BorderRadius.all(
+            Radius.circular(widget.isPlayer ? 30 : (widget.size / 12))),
         child: Container(
           color: AppColor.imageBGColor,
           // Cache the network image for later use

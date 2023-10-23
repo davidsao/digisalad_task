@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'dart:developer';
 
+import 'package:digisalad_task/data_models/song_data_model.dart';
 import 'package:http/http.dart' as http;
 
 // Fetching online contents
@@ -11,15 +11,16 @@ class APIServices {
   // - Term  = keyword (Search Term)
   // - Limit = 200
 
-  Future<dynamic> getSearchResult(String keyword) async {
+  Future<List<SongDataModel>?> getSearchResult(String keyword) async {
     try {
       var url = Uri.parse(
           "https://itunes.apple.com/search?media=music&term=$keyword&limit=200");
       var response = await http.get(url,
           headers: {"Access-Control-Allow-Origin": "*", 'Accept': '/'});
       if (response.statusCode == 200) {
-        // Pass back the JSON object to the widget for displaying the search result
-        return jsonDecode(response.body);
+        List<SongDataModel> model = songModelFromJson(response.body);
+        print(model.length);
+        return model;
       }
     } catch (e) {
       log(e.toString());

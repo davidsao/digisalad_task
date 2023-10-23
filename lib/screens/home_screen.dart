@@ -9,7 +9,7 @@ import '../constants/constant.dart';
 class HomeScreen extends StatelessWidget {
   // Initiate the controller for selected page in the bottom bar
   final LandingPageController landingPageController =
-  Get.put(LandingPageController(), permanent: false);
+      Get.put(LandingPageController(), permanent: false);
 
   @override
   Widget build(BuildContext context) {
@@ -17,31 +17,43 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: buildBottomBar(context, landingPageController),
       backgroundColor: AppColor.backgroundColor,
       body: Obx(() => IndexedStack(
-        index: landingPageController.tabIndex.value,
-        children: [
-          SearchScreen(),
-          SettingsScreen(),
-        ],
-      )),
+            index: landingPageController.tabIndex.value,
+            children: [
+              SearchScreen(),
+              SettingsScreen(),
+            ],
+          )),
     );
   }
 
   buildBottomBar(context, landingPageController) {
-    return Obx(() => NavigationBar(
-      onDestinationSelected: (value) => landingPageController.changeTabIndex(value),
-      selectedIndex: landingPageController.tabIndex.value,
-      backgroundColor: AppColor.appBarColor,
-      surfaceTintColor: AppColor.appBarColor,
-      destinations: [
-        NavigationDestination(
-          icon: const Icon(Icons.home),
-          label: 'nav_bar_home'.tr,
-        ),
-        NavigationDestination(
-            icon: const Icon(Icons.settings),
-            label: 'nav_bar_settings'.tr
-        )
-      ],
-    ));
+    return Obx(
+      () => Container(
+          // Decoration for the bottom navigation bar
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+            color: AppColor.appBarColor,
+            boxShadow: [BoxShadow(color: AppColor.shadowColor, blurRadius: 10)],
+          ),
+          child: NavigationBar(
+            onDestinationSelected: (value) =>
+                landingPageController.changeTabIndex(value),
+            selectedIndex: landingPageController.tabIndex.value,
+            backgroundColor: Colors.transparent,
+            surfaceTintColor: AppColor.appBarColor,
+            destinations: [
+              // Button for the home tab
+              NavigationDestination(
+                icon: const Icon(Icons.home),
+                label: 'nav_bar_home'.tr,
+              ),
+              // Button for the settings tab
+              NavigationDestination(
+                  icon: const Icon(Icons.settings),
+                  label: 'nav_bar_settings'.tr)
+            ],
+          )),
+    );
   }
 }

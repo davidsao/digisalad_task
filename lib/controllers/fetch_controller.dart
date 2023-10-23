@@ -1,14 +1,19 @@
+import 'package:digisalad_task/data_models/song_data_model.dart';
 import 'package:digisalad_task/utils/api_services.dart';
 import 'package:get/get.dart';
 
-class FetchController extends GetxController{
-
-  dynamic _songList = [];
-  dynamic get songList => _songList;
+class FetchController extends GetxController {
+  List<SongDataModel?> _songList = [];
+  List<SongDataModel?> get songList => _songList;
 
   Future<void> fetchSongs(String keyword) async {
     await APIServices().getSearchResult(keyword).then((value) {
-      if (value != null) _songList = value['results'];
+      print(value);
+      if (value != null) {
+        _songList = value;
+      } else {
+        _songList = [];
+      }
     });
     update();
   }
